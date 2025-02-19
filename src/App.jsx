@@ -26,9 +26,9 @@ function App() {
           <h1
             className={`${
               theme ? "text-black" : "text-white"
-            } text-3xl font-bold text-center`}
+            } text-3xl font-semibold tracking-widest text-center`}
           >
-            Stopwatch
+            STOPWATCH
           </h1>
           <StopwatchDeck />
         </div>
