@@ -9,7 +9,7 @@ function ThemeToggler() {
       onClick={changeTheme}
       className={`${
         theme ? "text-black" : "text-white"
-      } fixed top-0 right-0 m-5 cursor-pointer`}
+      } absolute top-0 right-0 m-5 cursor-pointer`}
     >
       {theme ? <Moon /> : <Sun />}
     </button>

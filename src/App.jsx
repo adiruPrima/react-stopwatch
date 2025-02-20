@@ -17,7 +17,9 @@ function App() {
       <div
         className={`bg-gradient-to-br ${
           theme ? "from-blue-200 to-white" : "from-slate-700 to-slate-950"
-        } ${theme ? "text-black" : "text-white"} min-h-screen`}
+        } ${
+          theme ? "text-black" : "text-white"
+        } min-h-screen min-w-screen relative`}
       >
         <ThemeToggler />
 
@@ -26,7 +28,7 @@ function App() {
           <h1
             className={`${
               theme ? "text-black" : "text-white"
-            } text-3xl font-semibold tracking-widest text-center`}
+            } text-3xl font-semibold tracking-widest text-center mt-10 sm:mt-0`}
           >
             STOPWATCH
           </h1>

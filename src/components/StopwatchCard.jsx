@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { ThemeContext } from "../App";
 import { Pause, Play, RotateCcw, Trash2 } from "lucide-react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 /* eslint-disable react/prop-types */
-function StopwatchCard({ title, status }) {
+function StopwatchCard({ id, title, status }) {
+  // Color conditionals
   let bgColor = "";
   let borderColor = "";
   if (status === "stop") {
@@ -17,10 +20,27 @@ function StopwatchCard({ title, status }) {
     borderColor = "border-yellow-700";
   }
 
+  // Theme context
   const { theme } = useContext(ThemeContext);
 
+  // Drag-N-Drop utilities
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    touchAction: "none",
+    transition,
+    transform: transform ? CSS.Transform.toString(transform) : "",
+  };
+
   return (
-    <li className={`${bgColor}  ${borderColor} border-4 rounded-2xl p-3 w-96`}>
+    <li
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
+      className={`${bgColor}  ${borderColor} border-4 rounded-2xl p-3 w-80 sm:w-96`}
+    >
       <h2
         className={`${theme ? "text-black" : "text-white"} font-bold text-xl`}
       >
