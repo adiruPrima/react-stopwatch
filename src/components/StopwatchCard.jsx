@@ -124,7 +124,7 @@ function StopwatchCard({ id, title, onDelete }) {
           {status === "play" ? <Pause /> : <Play />}
         </button>
         <button
-          onClick={onDelete}
+          onClick={() => onDelete(id)}
           className="bg-red-500 py-1 px-6 rounded-full cursor-pointer"
         >
           <Trash2 />

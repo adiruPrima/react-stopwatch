@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { usePersistedState } from "../hooks/usePersistedState";
 import StopwatchCard from "./StopwatchCard";
 import {
   closestCorners,
@@ -20,19 +19,14 @@ import { Plus } from "lucide-react";
 import AddCardModal from "./AddCardModal";
 
 function StopwatchDeck() {
-  const [items, setItems] = useState([
-    { id: 1, title: "cooking" },
-    { id: 2, title: "doing homework" },
-    { id: 3, title: "gooning" },
-  ]);
+  const [items, setItems] = useState([{ id: 1, title: "Working" }]);
 
   const id = useRef(items.length + 1);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function add(formData) {
+  function addItem(formData) {
     const title = formData.get("title");
-    console.log(title);
     if (title) {
       setItems((prev) => [
         ...prev,
@@ -43,7 +37,12 @@ function StopwatchDeck() {
         },
       ]);
       id.current++;
+      setIsModalOpen(false);
     }
+  }
+
+  function removeItem(id) {
+    setItems((prev) => prev.filter((item) => item.id !== id));
   }
 
   // Drag-N-Drop functions
@@ -71,13 +70,14 @@ function StopwatchDeck() {
     });
   }
 
-  // ----- TEST -------
-  console.log(items);
   return (
     <ul className="relative m-7 flex flex-col gap-5 items-center overflow-hidden">
       {/* All item modal */}
       {isModalOpen && (
-        <AddCardModal onAdd={add} closeModal={() => setIsModalOpen(false)} />
+        <AddCardModal
+          onAdd={addItem}
+          closeModal={() => setIsModalOpen(false)}
+        />
       )}
 
       {/* Items render */}
@@ -88,7 +88,12 @@ function StopwatchDeck() {
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           {items.map((item) => (
-            <StopwatchCard key={item.id} id={item.id} title={item.title} />
+            <StopwatchCard
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              onDelete={removeItem}
+            />
           ))}
         </SortableContext>
       </DndContext>
