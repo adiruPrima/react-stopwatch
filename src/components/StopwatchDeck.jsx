@@ -17,6 +17,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Plus } from "lucide-react";
+import AddCardModal from "./AddCardModal";
 
 function StopwatchDeck() {
   const [items, setItems] = useState([
@@ -27,8 +28,11 @@ function StopwatchDeck() {
 
   const id = useRef(items.length + 1);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   function add(formData) {
     const title = formData.get("title");
+    console.log(title);
     if (title) {
       setItems((prev) => [
         ...prev,
@@ -67,8 +71,15 @@ function StopwatchDeck() {
     });
   }
 
+  // ----- TEST -------
+  console.log(items);
   return (
-    <ul className="m-7 flex flex-col gap-5 items-center overflow-hidden">
+    <ul className="relative m-7 flex flex-col gap-5 items-center overflow-hidden">
+      {/* All item modal */}
+      {isModalOpen && (
+        <AddCardModal onAdd={add} closeModal={() => setIsModalOpen(false)} />
+      )}
+
       {/* Items render */}
       <DndContext
         sensors={sensors}
@@ -82,7 +93,10 @@ function StopwatchDeck() {
         </SortableContext>
       </DndContext>
 
-      <li className="bg-sky-500/50 border-sky-500 flex justify-center border-4 rounded-2xl p-3 w-80 sm:w-96 cursor-pointer">
+      <li
+        onClick={() => setIsModalOpen(true)}
+        className="bg-sky-500/50 border-sky-500 flex justify-center border-4 rounded-2xl p-3 w-80 sm:w-96 cursor-pointer"
+      >
         <Plus size={40} strokeWidth={3} />
       </li>
     </ul>
