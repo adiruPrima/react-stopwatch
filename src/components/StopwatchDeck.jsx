@@ -20,9 +20,9 @@ import { Plus } from "lucide-react";
 
 function StopwatchDeck() {
   const [items, setItems] = useState([
-    { id: 1, title: "cooking", status: "stop" },
-    { id: 2, title: "doing homework", status: "stop" },
-    { id: 3, title: "gooning", status: "stop" },
+    { id: 1, title: "cooking" },
+    { id: 2, title: "doing homework" },
+    { id: 3, title: "gooning" },
   ]);
 
   const id = useRef(items.length + 1);
@@ -68,7 +68,7 @@ function StopwatchDeck() {
   }
 
   return (
-    <ul className="m-7 flex flex-col gap-4 items-center overflow-hidden">
+    <ul className="m-7 flex flex-col gap-5 items-center overflow-hidden">
       {/* Items render */}
       <DndContext
         sensors={sensors}
@@ -77,12 +77,7 @@ function StopwatchDeck() {
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           {items.map((item) => (
-            <StopwatchCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              status={item.status}
-            />
+            <StopwatchCard key={item.id} id={item.id} title={item.title} />
           ))}
         </SortableContext>
       </DndContext>
