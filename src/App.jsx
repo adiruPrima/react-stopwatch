@@ -24,7 +24,7 @@ function App() {
         <ThemeToggler />
 
         {/* Main container */}
-        <div className="w-full min-h-screen p-8">
+        <div className="w-full min-h-screen p-0 pt-4 sm:p-8">
           <h1
             className={`${
               theme ? "text-black" : "text-white"
